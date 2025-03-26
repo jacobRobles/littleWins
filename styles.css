@@ -1,0 +1,299 @@
+/* Reset + Base */
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #2db9a3;
+    color: white;
+    padding: 16px 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .header-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-family: 'Courier Prime', monospace;
+    color: white;
+  }
+  
+  /* Drawer */
+  .drawer-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 200;
+  }
+  
+  .about-drawer {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
+    transition: bottom 0.3s ease;
+    z-index: 201;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tabs {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.95em;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #2db9a3;
+    transition: background 0.2s ease;
+  }
+  .tab-button:hover {
+    background: #f2f2f2;
+  }
+  .tab-button.active {
+    background: #2db9a3;
+    color: white;
+  }
+  .drawer-close {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #555;
+  }
+  
+  .drawer-content {
+    padding: 20px 16px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .tab-content h2 {
+    margin-top: 0;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 700px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border: 1px solid #ccc;
+  }
+  
+  /* Intro Text */
+  .intro {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    font-size: 1em;
+    font-family: 'Courier Prime', monospace;
+  }
+  
+  /* Form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 0 20px;
+  }
+  textarea {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: none;
+    height: 80px;
+  }
+  input[type="file"] {
+    font-size: 0.9em;
+  }
+  button {
+    padding: 12px;
+    font-size: 1em;
+    background-color: #2db9a3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  button:hover {
+    background-color: #24a090;
+  }
+  
+  /* Win Feed */
+ 
+/* Post-It Note Grid Layout */
+/* Post-It Note Grid Layout */
+#winsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 0 20px;
+  }
+  
+  /* Sticky Note Card Style */
+  .win-card {
+    background: #fff7cc; /* Sticky note yellowish color */
+    border: 1px solid #e4d08b;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier Prime', monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Adjust to align text and button */
+    height: 260px; /* Keeps consistency */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Text inside sticky note */
+  .win-card p {
+    font-size: 1em;
+    line-height: 1.4;
+    color: #444;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    margin-bottom: 40px; /* To make space for the like button */
+  }
+  
+  /* Larger Image inside sticky note */
+  /* Image inside sticky note */
+.win-card img {
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Adjust size as needed */
+    object-fit: cover;
+    border-radius: 6px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.8;
+  }
+  
+  
+  /* Like Button positioned better */
+  .like-btn {
+    background: none;
+    border: none;
+    color: #2db9a3;
+    font-size: 1em;
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    appearance: none;
+    text-align: center;
+    line-height: 1;
+    position: absolute;
+    bottom: 10px; /* Position it at the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center the button horizontally */
+  }
+  
+  .like-btn:hover,
+  .like-btn:focus,
+  .like-btn:focus-visible {
+    background: none !important;
+    outline: none !important;
+    color: #2db9a3 !important;
+    box-shadow: none !important;
+  }
+  
+  .like-btn:active {
+    transform: scale(0.96);
+  }
+  
+  .like-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    background: none;
+    color: #ccc;
+  }
+  
+  
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    z-index: 200;
+    flex-wrap: wrap;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8em;
+    color: #444;
+    margin: 2px 6px;
+  }
+  .nav-item i {
+    margin-bottom: 4px;
+    color: #2db9a3;
+  }
+  

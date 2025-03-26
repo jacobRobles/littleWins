@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Little Wins</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>Little Wins</h1>
+    </div>
+  </header>
+
+  <!-- Drawer Overlay + Content -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+  <div class="about-drawer" id="aboutDrawer">
+    <div class="drawer-header">
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('aboutTab')">About</button>
+        <button class="tab-button" onclick="showTab('privacyTab')">Privacy</button>
+        <button class="tab-button" onclick="showTab('termsTab')">Terms</button>
+      </div>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+
+    <div class="drawer-content">
+      <div class="tab-content" id="aboutTab">
+        <h2>About Little Wins</h2>
+        <p>Little Wins is a place to celebrate the small victories that make everyday life meaningful. Whether it's sending that email, getting out of bed, or just taking a breath — every win matters.</p>
+      </div>
+
+      <div class="tab-content" id="privacyTab" style="display: none;">
+        <h2>Privacy Policy</h2>
+        <p>This site is anonymous. We do not collect personal data. Posts are public. No cookies, no trackers.</p>
+      </div>
+
+      <div class="tab-content" id="termsTab" style="display: none;">
+        <h2>Terms of Use</h2>
+        <p>Be kind. Don’t post anything offensive or illegal. Posts may be moderated or removed if necessary.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <p class="intro">Share a small victory today — even the tiniest things count.</p>
+
+    <form id="winForm">
+      <textarea id="winInput" placeholder="Type your little win here..." maxlength="280" required></textarea>
+      <input type="file" id="imageInput" accept="image/*" />
+      <button type="submit">
+        <i data-lucide="pencil"></i> Share
+      </button>
+    </form>
+
+    <h2 class="section-title" id="feed">
+      <i data-lucide="list"></i> Recent Wins
+    </h2>
+    <div id="winsList" class="wins-grid"></div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item" onclick="scrollToSection('feed')">
+      <i data-lucide="home"></i>
+      <span>Feed</span>
+    </div>
+    <div class="nav-item" onclick="scrollToSection('winForm')">
+      <i data-lucide="plus-circle"></i>
+      <span>Post</span>
+    </div>
+    <div class="nav-item" onclick="openDrawer()">
+      <i data-lucide="info"></i>
+      <span>About</span>
+    </div>
+  </nav>
+
+  <script src="script.js"></script>
+  <script>
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        if (id === 'winForm') {
+          const input = section.querySelector('textarea');
+          if (input) {
+            setTimeout(() => {
+              input.focus();
+              input.classList.add('bounce');
+              setTimeout(() => input.classList.remove('bounce'), 400);
+            }, 500);
+          }
+        }
+      }
+    }
+
+    function openDrawer() {
+      document.getElementById('drawerOverlay').style.display = 'block';
+      document.getElementById('aboutDrawer').style.bottom = '0';
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').style.display = 'none';
+      document.getElementById('aboutDrawer').style.bottom = '-100%';
+    }
+
+    function showTab(id) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+      tabs.forEach(tab => tab.style.display = 'none');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(id).style.display = 'block';
+      const activeBtn = Array.from(buttons).find(btn => btn.textContent.toLowerCase().includes(id.replace('Tab', '').toLowerCase()));
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
