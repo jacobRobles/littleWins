@@ -1,14 +1,23 @@
 const form = document.getElementById('winForm');
-const input = document.getElementById('winInput');
 const imageInput = document.getElementById('imageInput');
 const list = document.getElementById('winsList');
 
 let wins = JSON.parse(localStorage.getItem('wins')) || [];
 let likedPosts = JSON.parse(localStorage.getItem('likedPosts')) || [];
+let dailyUploads = JSON.parse(localStorage.getItem('dailyUploads')) || [];
+
+const today = new Date().toISOString().split('T')[0];
+dailyUploads = dailyUploads.filter(entry => entry.date === today);
+
+function saveDailyUpload() {
+  dailyUploads.push({ date: today });
+  localStorage.setItem('dailyUploads', JSON.stringify(dailyUploads));
+}
 
 function renderWins() {
   list.innerHTML = '';
-  wins.slice().reverse().forEach((win, index) => {
+  const shuffled = wins.slice().sort(() => Math.random() - 0.5);
+  shuffled.forEach((win, index) => {
     const card = document.createElement('div');
     card.className = 'win-card';
 
@@ -19,91 +28,89 @@ function renderWins() {
       card.appendChild(img);
     }
 
-    const contentWrapper = document.createElement('div');
-    contentWrapper.className = 'win-content';
-
-    const message = document.createElement('p');
-    message.textContent = win.text;
-    contentWrapper.appendChild(message);
-
     const likeBtn = document.createElement('button');
     likeBtn.className = 'like-btn';
 
-    const postId = win.id || (wins.length - 1 - index);
-const hasLiked = likedPosts.includes(postId);
+    const postId = win.id;
+    const hasLiked = likedPosts.includes(postId);
 
-likeBtn.innerHTML = `<i data-lucide="thumbs-up"></i> ${hasLiked ? 'Liked' : 'Like'} (${win.likes || 0})`;
-likeBtn.disabled = hasLiked;
+    likeBtn.innerHTML = `<i data-lucide="thumbs-up"></i> ${hasLiked ? 'Liked' : 'Like'} (${win.likes || 0})`;
+    likeBtn.disabled = hasLiked;
 
-likeBtn.addEventListener('click', () => {
-  // Recheck dynamically whether this post has been liked
-  if (!likedPosts.includes(postId)) {
-    // Use the reverse order index mapping to update the correct win
-    wins[wins.length - 1 - index].likes = (win.likes || 0) + 1;
-    likedPosts.push(postId);
-    localStorage.setItem('wins', JSON.stringify(wins));
-    localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
-    renderWins();
-  }
-});
+    likeBtn.addEventListener('click', () => {
+      if (!likedPosts.includes(postId)) {
+        const targetIndex = wins.findIndex(w => w.id === postId);
+        wins[targetIndex].likes = (wins[targetIndex].likes || 0) + 1;
+        likedPosts.push(postId);
+        localStorage.setItem('wins', JSON.stringify(wins));
+        localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+        renderWins();
+      }
+    });
 
-
-    contentWrapper.appendChild(likeBtn);
-    card.appendChild(contentWrapper);
+    card.appendChild(likeBtn);
     list.appendChild(card);
   });
 
   lucide.createIcons();
 }
 
-// Handle form submission
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
-  
-    const text = input.value.trim();
-    const file = imageInput.files[0]; // Image input
-  
-    // If there's no text and no file, don't submit
-    if (!text && !file) return;
-  
-    const saveWin = (imageData) => {
-      const newWin = {
-        id: Date.now(),
-        text,
-        image: imageData, // Store image as base64 string or null
-        likes: 0
-      };
-      wins.push(newWin);
-      try {
-        localStorage.setItem('wins', JSON.stringify(wins));
-      } catch (error) {
-        console.error('Error saving to localStorage:', error);
-      }
-      input.value = '';
-      imageInput.value = '';
-      renderWins();
+  e.preventDefault();
+
+  const file = imageInput.files[0];
+
+  if (!file) return;
+
+  if (dailyUploads.length >= 2) {
+    alert("You can only upload 2 photos per day!");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const newWin = {
+      id: Date.now(),
+      image: event.target.result,
+      likes: 0,
+      date: today
     };
-  
-    if (file) {
-      console.log("File selected:", file);
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        console.log("File loaded successfully");
-        saveWin(event.target.result);
-      };
-      reader.onerror = function (error) {
-        console.error("Error reading file:", error);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      saveWin(null);
+    wins.push(newWin);
+    saveDailyUpload();
+    try {
+      localStorage.setItem('wins', JSON.stringify(wins));
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
     }
-  });
-  
+    imageInput.value = '';
+    renderWins();
+  };
+  reader.onerror = function (error) {
+    console.error("Error reading file:", error);
+  };
+  reader.readAsDataURL(file);
+});
 
-renderWins(); // Initial render
+renderWins();
 
-// Drawer + Tab Logic
+// Auto-open camera on "Post"
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+
+    if (id === 'winForm') {
+      const fileInput = section.querySelector('input[type="file"]');
+      if (fileInput) {
+        setTimeout(() => {
+          fileInput.click(); // 🚀 triggers camera
+        }, 400);
+      }
+    }
+  }
+}
+
+// Drawer + Tabs
 function openDrawer() {
   document.getElementById('drawerOverlay').style.display = 'block';
   document.getElementById('aboutDrawer').style.bottom = '0';
@@ -126,3 +133,4 @@ function showTab(id) {
 }
 
 lucide.createIcons();
+
