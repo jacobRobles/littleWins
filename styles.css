@@ -140,16 +140,12 @@ body {
     margin-bottom: 30px;
     padding: 0 20px;
   }
-  textarea {
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: none;
-    height: 80px;
-  }
   input[type="file"] {
-    font-size: 0.9em;
+    font-size: 0.95em;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
   }
   button {
     padding: 12px;
@@ -169,62 +165,36 @@ body {
     background-color: #24a090;
   }
   
-  /* Win Feed */
- 
-/* Post-It Note Grid Layout */
-/* Post-It Note Grid Layout */
-#winsList {
+  /* Flex Feed */
+  #winsList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
-    padding: 0 20px;
+    padding: 0 20px 20px;
   }
   
-  /* Sticky Note Card Style */
   .win-card {
-    background: #fff7cc; /* Sticky note yellowish color */
-    border: 1px solid #e4d08b;
+    background: #fefefe;
+    border: 1px solid #ddd;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Courier Prime', monospace;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Adjust to align text and button */
-    height: 260px; /* Keeps consistency */
+    justify-content: flex-end;
+    align-items: center;
+    height: 260px;
     position: relative;
     overflow: hidden;
   }
   
-  /* Text inside sticky note */
-  .win-card p {
-    font-size: 1em;
-    line-height: 1.4;
-    color: #444;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    margin-bottom: 40px; /* To make space for the like button */
-  }
-  
-  /* Larger Image inside sticky note */
-  /* Image inside sticky note */
-.win-card img {
-    width: 80px; /* Adjust size as needed */
-    height: 80px; /* Adjust size as needed */
+  .win-card img {
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    border-radius: 6px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    opacity: 0.8;
+    border-radius: 8px;
   }
   
-  
-  /* Like Button positioned better */
   .like-btn {
     background: none;
     border: none;
@@ -240,12 +210,7 @@ body {
     cursor: pointer;
     transition: transform 0.1s ease;
     appearance: none;
-    text-align: center;
-    line-height: 1;
-    position: absolute;
-    bottom: 10px; /* Position it at the bottom */
-    left: 50%;
-    transform: translateX(-50%); /* Center the button horizontally */
+    margin-top: 6px;
   }
   
   .like-btn:hover,
@@ -267,7 +232,6 @@ body {
     background: none;
     color: #ccc;
   }
-  
   
   /* Bottom Navigation */
   .bottom-nav {
@@ -296,4 +260,5 @@ body {
     margin-bottom: 4px;
     color: #2db9a3;
   }
+  
   
