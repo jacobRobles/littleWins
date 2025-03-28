@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Little Wins</title>
+  <title>Flex Photos</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
   <header>
     <div class="header-inner">
-      <h1>Little Wins</h1>
+      <h1>Flex Photos</h1>
     </div>
   </header>
 
@@ -35,36 +35,35 @@
 
     <div class="drawer-content">
       <div class="tab-content" id="aboutTab">
-        <h2>About Little Wins</h2>
-        <p>Little Wins is a place to celebrate the small victories that make everyday life meaningful. Whether it's sending that email, getting out of bed, or just taking a breath — every win matters.</p>
+        <h2>About Flex Photos</h2>
+        <p>Flex Photos is a place where you flex your best shots. Upload only photos taken from your camera. No followers, no pressure — just clean competition. The top 15 most liked users of the week make the leaderboard. You get 2 uploads per day. Let your camera do the talking.</p>
       </div>
 
       <div class="tab-content" id="privacyTab" style="display: none;">
         <h2>Privacy Policy</h2>
-        <p>This site is anonymous. We do not collect personal data. Posts are public. No cookies, no trackers.</p>
+        <p>This site is anonymous. No personal data collection. Photos are public. No cookies or trackers.</p>
       </div>
 
       <div class="tab-content" id="termsTab" style="display: none;">
         <h2>Terms of Use</h2>
-        <p>Be kind. Don’t post anything offensive or illegal. Posts may be moderated or removed if necessary.</p>
+        <p>No offensive or illegal content. Be respectful. Moderation may apply if necessary.</p>
       </div>
     </div>
   </div>
 
   <!-- Main Content -->
   <div class="container">
-    <p class="intro">Share a small victory today — even the tiniest things count.</p>
+    <p class="intro">Upload your freshest camera shots — only 2 photos per day allowed!</p>
 
     <form id="winForm">
-      <textarea id="winInput" placeholder="Type your little win here..." maxlength="280" required></textarea>
-      <input type="file" id="imageInput" accept="image/*" />
+      <input type="file" id="imageInput" accept="image/*" capture="environment" required />
       <button type="submit">
-        <i data-lucide="pencil"></i> Share
+        <i data-lucide="camera"></i> Flex It
       </button>
     </form>
 
     <h2 class="section-title" id="feed">
-      <i data-lucide="list"></i> Recent Wins
+      <i data-lucide="list"></i> Flex Feed
     </h2>
     <div id="winsList" class="wins-grid"></div>
   </div>
@@ -92,10 +91,9 @@
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
         if (id === 'winForm') {
-          const input = section.querySelector('textarea');
+          const input = section.querySelector('input[type="file"]');
           if (input) {
             setTimeout(() => {
-              input.focus();
               input.classList.add('bounce');
               setTimeout(() => input.classList.remove('bounce'), 400);
             }, 500);
